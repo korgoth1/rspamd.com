@@ -51,7 +51,7 @@ notation instead of IP addresses as well.
 ~~~ucl
 # local.d/spf.conf
 
-	external_relay = "192.168.1.1"; # use IP address from a received header produced by this relay (using by attribute)
+	external_relay = ["192.168.1.1"]; # use IP address from a received header produced by this relay (using by attribute)
 ~~~
 
 ~~~ucl
