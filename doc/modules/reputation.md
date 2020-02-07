@@ -69,6 +69,41 @@ rules {
 }
 ~~~
 
+You can also create various exeptions by [combining maps](https://www.rspamd.com/doc/modules/multimap.html#combined-maps), selectors and expressions.
+
+For example:
+
+~~~ucl
+# local.d/reputation.conf
+rules {
+  ip_reputation =  {
+    selector "ip" {
+    }
+    backend "redis" {
+    }
+
+    symbol = "IP_REPUTATION";
+
+    whitelist_ip_from = {
+      rules {
+        ip = {
+          selector = "ip";
+          map = "/path/to/whitelist_ip.map";
+        }
+        from {
+          selector = "from(smtp)";
+          map = "/path/to/whitelist_from.map";
+        }
+      }
+      expression = "ip & from";
+    }
+  }
+
+...
+
+}
+~~~
+
 The picture below demonstrates how reputation tokens are being processed:
 
 <center><img class="img-responsive" src="{{ site.baseurl }}/img/reputation1.png" width="50%"></center>
